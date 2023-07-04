@@ -5,6 +5,9 @@ public class Attachment
     private String name;
     private byte[] contents;
 
+    public Attachment() {
+    }
+
     public String getName() {
         return name;
     }
