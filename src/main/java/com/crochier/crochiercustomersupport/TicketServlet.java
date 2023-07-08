@@ -46,7 +46,7 @@ public class TicketServlet extends HttpServlet
         {
            case "list" -> listTickets(response);
            case "view" -> viewTicket(request, response);
-           case "create" -> showTicketForm(response);
+           case "create" -> showTicketForm(request, response);
            case "download" -> downloadAttachment(request, response);
         }
     }
@@ -139,28 +139,8 @@ public class TicketServlet extends HttpServlet
         stream.write(attachment.getContents());
     }
 
-    private void showTicketForm(HttpServletResponse response) throws IOException {
-        PrintWriter out = response.getWriter();
-        out.println(" <!DOCTYPE html>\n" +
-                "<html>\n" +
-                "    <body>\n" +
-                "        <h2>\n" +
-                "            Submit a new ticket\n" +
-                "        </h2>\n" +
-                "        <Form method=\"POST\" action=\"tickets\" enctype=\"multipart/form-data\"> \n" +
-                "            <input type=\"hidden\" name=\"action\" value=\"create\">\n" +
-                "            Customer Name: <br><br>\n" +
-                "            <input type=\"text\" name=\"customername\"> <br><br>\n" +
-                "            Subject: <br><br>\n" +
-                "            <input type=\"text\" name=\"subject\"> <br><br>\n" +
-                "            Problem: <br>\n" +
-                "            <textarea name=\"ticketBody\" cols=\"50\" rows=\"10\"></textarea> <br>\n" +
-                "            <b>Attachments:</b> <br>\n" +
-                "            <input type=\"file\" name=\"attachment\"> <br><br>\n" +
-                "            <input type=\"submit\" value=\"Submit\">\n" +
-                "        </Form>\n" +
-                "    </body>\n" +
-                "</html>");
+    private void showTicketForm(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        request.getRequestDispatcher("WEB-INF/jsp/view/ticketForm.jsp");
     }
 
     private void viewTicket(HttpServletRequest request, HttpServletResponse response) throws IOException {
