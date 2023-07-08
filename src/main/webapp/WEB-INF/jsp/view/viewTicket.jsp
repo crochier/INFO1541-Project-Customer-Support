@@ -12,12 +12,12 @@
     <p>Number of Attachments: <c:out value="${ticket.getNumberOfAttachments()}"/><br> </p>
     <c:if test="${ticket.getNumberOfAttachments()>0}">
         <p>Attachments:</p>
-        <c:forEach var="attachment" items="${ticket.attachment}">
+        <c:forEach var="attachment" items="${ticket.attachments}">
             <a href="<c:url value='/tickets'>
             <c:param name='action' value='download'/>
             <c:param name='ticketID' value='${idString}'/>
             <c:param name='attachment' value='${attachment.value.name}'/>
-            </c:url>"
+            </c:url>">
             <c:out value="${attachment.value.name}" />
 
         </a>

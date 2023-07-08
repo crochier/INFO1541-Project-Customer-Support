@@ -82,6 +82,7 @@ public class TicketServlet extends HttpServlet
 
             Attachment attachment = this.processAttachment(file);
             ticket.addAttachment(fileName, attachment);
+        }
             int id;
             synchronized (this)
             {
@@ -90,7 +91,7 @@ public class TicketServlet extends HttpServlet
                 allTickets.put(id, ticket);
             }
             response.sendRedirect("tickets?action=view&ticketID=" + id);
-        }
+
     }
 
     private Attachment processAttachment(Part file) throws IOException {
@@ -149,7 +150,7 @@ public class TicketServlet extends HttpServlet
         }
         request.setAttribute("idString", idString);
         request.setAttribute("ticket", ticket);
-        request.getRequestDispatcher("WEB-INF/jsp/view/ticketForm.jsp").forward(request,response);
+        request.getRequestDispatcher("WEB-INF/jsp/view/viewTicket.jsp").forward(request, response);
     }
 
     private Ticket getTicket(String IDstring, HttpServletResponse response) throws IOException {
@@ -177,9 +178,9 @@ public class TicketServlet extends HttpServlet
         }
     }
 
-    private void listTickets(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void listTickets(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // list all the tickets
         request.setAttribute("allTickets", allTickets);
-        request.getRequestDispatcher("WEB-INF/jsp/view/listTicket.jsp");
+        request.getRequestDispatcher("WEB-INF/jsp/view/listTicket.jsp").forward(request, response);
     }
 }

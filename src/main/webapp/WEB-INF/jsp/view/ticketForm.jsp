@@ -6,7 +6,7 @@
     <h2>
         Submit a new ticket
     </h2>
-    <form> method="POST" action="tickets" enctype="multipart/form-data" >
+    <form method="POST" action="tickets" enctype="multipart/form-data" >
         <input type="hidden" name="action" value="create">
         Customer Name: <br>
         <input type="text" name="customerName" > <br><br>
