@@ -44,7 +44,7 @@ public class TicketServlet extends HttpServlet
         }
         switch (action)
         {
-           case "list" -> listTickets(response);
+           case "list" -> listTickets(request, response);
            case "view" -> viewTicket(request, response);
            case "create" -> showTicketForm(request, response);
            case "download" -> downloadAttachment(request, response);
@@ -145,31 +145,15 @@ public class TicketServlet extends HttpServlet
 
     private void viewTicket(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // view 1 ticket based on ID set
-        String IDstring = request.getParameter("ticketID");
-        Ticket ticket = getTicket(IDstring, response);
+        String idString = request.getParameter("ticketID");
+        Ticket ticket = getTicket(idString, response);
         if (ticket == null)
         {
             return;
         }
-        String customer = ticket.getCustomerName();
-        String subject = ticket.getTicketSubject();
-        String body = ticket.getTicketBody();
-        PrintWriter out = response.getWriter();
-        out.println("<h2>Ticket Number" + IDstring + "</h2>" + "<i> Subject: " + subject + "<br>" +
-                "Customer Name: " + customer + "<br>" + "Body: " + body + "<br>");
-        out.println("Number Of Attachments: " + ticket.getNumberOfAttachments() + "<br></i>");
-        if (ticket.getNumberOfAttachments() > 0)
-        {
-            out.println("<i> Attachments: </i>");
-            for (Attachment attachment : ticket.getAllAttachments())
-            {
-                out.println("<a href = \"tickets?action=download&ticketID=" +
-                        IDstring + "&attachment=" + attachment.getName() + "\">" + attachment.getName() + "</a>");
-                out.println("<br>");
-            }
-            out.println("<br><br>");
-        }
-        out.println("<a href = \"tickets\">return to ticket list</a></body></html>");
+        request.setAttribute("idString", idString);
+        request.setAttribute("ticket", ticket);
+        request.getRequestDispatcher("WEB-INF/jsp/view/ticketForm.jsp");
     }
 
     private Ticket getTicket(String IDstring, HttpServletResponse response) throws IOException {
@@ -197,28 +181,9 @@ public class TicketServlet extends HttpServlet
         }
     }
 
-    private void listTickets(HttpServletResponse response) throws IOException {
+    private void listTickets(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // list all the tickets
-        PrintWriter out = response.getWriter();
-        out.println("<html> <body> <h2> Tickets </h2>");
-        out.println("<a href = \"tickets?action=create\">Create Ticket</a><br><br>");
-        if (allTickets.size() == 0)
-        {
-            out.println("There are no tickets yet...");
-        }
-        else
-        {
-            for (int ticketID : allTickets.keySet())
-            {
-                String idString = Integer.toString(ticketID);
-                Ticket ticket = allTickets.get(ticketID);
-                out.println("Ticket Number " + idString);
-                out.println(" : <a href = \"tickets?action=view&ticketID=" + ticketID + "\">");
-                out.println(ticket.getTicketSubject());
-                out.println("</a><br>Customer: " + ticket.getCustomerName() + "<br><br>");
-                out.println("</body></html>");
-            }
-        }
-        out.println("</body></html>");
+        request.setAttribute("allTickets", allTickets);
+        request.getRequestDispatcher("WEB-INF/jsp/view/listTickets.jsp");
     }
 }
