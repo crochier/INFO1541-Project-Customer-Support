@@ -6,13 +6,13 @@
 <body>
     <h2>List of tickets</h2>
     <a href="tickets?action=create">create ticket</a> <br><br>
-    <c:choice>
+    <c:choose>
         <c:when test="${allTickets.size() == 0}">
             <p>there are no blog posts yet...</p>
         </c:when>
         <c:otherwise>
             <c:forEach var="ticket" items="${allTickets}">
-                Ticket Number <c:out val="${ticket.key}"/>
+                Ticket Number <c:out value="${ticket.key}"/>
                 <a href="<c:url value='/tickets'>
                    <c:param name='action' value='view' />
                    <c:param name='ticketID' value='${ticket.key}'/>
@@ -21,6 +21,6 @@
                 </a><br>
             </c:forEach>
         </c:otherwise>
-    </c:choice>
+    </c:choose>
 </body>
 </html>

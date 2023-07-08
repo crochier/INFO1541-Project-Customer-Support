@@ -34,8 +34,7 @@ public class TicketServlet extends HttpServlet
     private final Map<Integer, Ticket> allTickets = new LinkedHashMap<>();
     
     @Override 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
-    {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
         String action = request.getParameter("action");
         if (action == null)
@@ -73,19 +72,16 @@ public class TicketServlet extends HttpServlet
     private void createTicket(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // called from the ticket form to create a ticket and add to the hash map
         Ticket ticket = new Ticket();
-        ticket.setCustomerName(request.getParameter("customername"));
+        ticket.setCustomerName(request.getParameter("customerName"));
         ticket.setTicketSubject(request.getParameter("subject"));
         ticket.setTicketBody(request.getParameter("ticketBody"));
         Part file = request.getPart("attachment");
         String fileName = file.getSubmittedFileName();
-        if (file != null && file.getSize()>0)
+        if (file.getSize()>0)
         {
 
             Attachment attachment = this.processAttachment(file);
-            if (attachment != null)
-            {
-                ticket.addAttachment(fileName, attachment);
-            }
+            ticket.addAttachment(fileName, attachment);
             int id;
             synchronized (this)
             {
@@ -139,11 +135,11 @@ public class TicketServlet extends HttpServlet
         stream.write(attachment.getContents());
     }
 
-    private void showTicketForm(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.getRequestDispatcher("WEB-INF/jsp/view/ticketForm.jsp");
+    private void showTicketForm(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.getRequestDispatcher("WEB-INF/jsp/view/ticketForm.jsp").forward(request,response);
     }
 
-    private void viewTicket(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void viewTicket(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // view 1 ticket based on ID set
         String idString = request.getParameter("ticketID");
         Ticket ticket = getTicket(idString, response);
@@ -153,7 +149,7 @@ public class TicketServlet extends HttpServlet
         }
         request.setAttribute("idString", idString);
         request.setAttribute("ticket", ticket);
-        request.getRequestDispatcher("WEB-INF/jsp/view/ticketForm.jsp");
+        request.getRequestDispatcher("WEB-INF/jsp/view/ticketForm.jsp").forward(request,response);
     }
 
     private Ticket getTicket(String IDstring, HttpServletResponse response) throws IOException {
@@ -184,6 +180,6 @@ public class TicketServlet extends HttpServlet
     private void listTickets(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // list all the tickets
         request.setAttribute("allTickets", allTickets);
-        request.getRequestDispatcher("WEB-INF/jsp/view/listTickets.jsp");
+        request.getRequestDispatcher("WEB-INF/jsp/view/listTicket.jsp");
     }
 }
