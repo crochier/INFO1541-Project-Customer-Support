@@ -35,7 +35,11 @@ public class TicketServlet extends HttpServlet
     
     @Override 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        response.setContentType("text/html");
+        if (request.getSession().getAttribute("username") == null)
+        {
+            response.sendRedirect("login");
+            return;
+        }
         String action = request.getParameter("action");
         if (action == null)
         {

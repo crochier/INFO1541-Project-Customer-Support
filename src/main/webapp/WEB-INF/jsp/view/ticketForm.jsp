@@ -3,6 +3,9 @@
     <title>Create A new Ticket</title>
 </head>
 <body>
+<a href="<c:url value='/login'>
+    <c:param name='logout'/>
+    </c:url> ">logout</a>
     <h2>
         Submit a new ticket
     </h2>

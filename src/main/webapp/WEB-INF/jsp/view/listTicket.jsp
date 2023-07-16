@@ -4,6 +4,9 @@
     <title>List of tickets</title>
 </head>
 <body>
+    <a href="<c:url value='/login'>
+    <c:param name='logout'/>
+    </c:url> ">logout</a>
     <h2>List of tickets</h2>
     <a href="tickets?action=create">create ticket</a> <br><br>
     <c:choose>
