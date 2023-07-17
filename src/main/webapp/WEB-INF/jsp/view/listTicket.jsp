@@ -11,7 +11,7 @@
     <a href="tickets?action=create">create ticket</a> <br><br>
     <c:choose>
         <c:when test="${allTickets.size() == 0}">
-            <p>there are no blog posts yet...</p>
+            <p>there are no tickets yet...</p>
         </c:when>
         <c:otherwise>
             <c:forEach var="ticket" items="${allTickets}">

@@ -5,7 +5,7 @@
 </head>
 <body>
     <a href="<c:url value='/login'>
-    <c:param name="'logout"/>
+    <c:param name='logout'/>
     </c:url> ">logout</a>
     <h2>Sessions</h2>
     There are a total of <c:out value="${numSessions}"/> active sessions going on.
