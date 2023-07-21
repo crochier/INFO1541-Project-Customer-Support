@@ -1,4 +1,4 @@
-package com.crochier.crochiercustomersupport;
+package com.crochier.crochiercustomersupport.site;
 
 public class Attachment
 {

@@ -5,6 +5,8 @@
 
 package com.crochier.crochiercustomersupport;
 
+import com.crochier.crochiercustomersupport.site.Attachment;
+import com.crochier.crochiercustomersupport.site.Ticket;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,16 +17,11 @@ import jakarta.servlet.ServletOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
-import java.lang.reflect.AnnotatedArrayType;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.Part;
-
-import javax.lang.model.type.PrimitiveType;
 
 @WebServlet(name = "ticketservlet", value = "/tickets", loadOnStartup = 1)
 @MultipartConfig(fileSizeThreshold = 5_242_880, maxFileSize = 20_971_200L, maxRequestSize = 41_943_040L)

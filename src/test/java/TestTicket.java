@@ -1,5 +1,5 @@
-import com.crochier.crochiercustomersupport.Attachment;
-import com.crochier.crochiercustomersupport.Ticket;
+import com.crochier.crochiercustomersupport.site.Attachment;
+import com.crochier.crochiercustomersupport.site.Ticket;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;

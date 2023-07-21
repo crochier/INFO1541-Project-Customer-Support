@@ -1,4 +1,4 @@
-package com.crochier.crochiercustomersupport;
+package com.crochier.crochiercustomersupport.site;
 
 import jakarta.servlet.http.HttpSession;
 import org.jboss.weld.context.http.Http;
