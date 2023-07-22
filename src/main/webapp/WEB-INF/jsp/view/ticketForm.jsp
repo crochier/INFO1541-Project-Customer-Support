@@ -7,11 +7,11 @@
     <h2>
         Submit a new ticket
     </h2>
-    <form method="POST" action="tickets" enctype="multipart/form-data" modelAttribute="ticket">
-        <form:label path="customerName">title:</form:label> <br>
-        <form:input path="customerName"><br><br></form:input>
+    <form method="POST" action="create" modelAttribute="ticket" enctype="multipart/form-data" >
+        <form:label path="customerName">name:</form:label><br>
+        <form:input path="customerName"></form:input><br><br>
         <form:label path="ticketSubject">subject:</form:label><br>
-        <form:input path="ticketSubject"><br><br></form:input>
+        <form:input path="ticketSubject"></form:input><br><br>
         <form:label path="ticketBody">problem:</form:label><br>
         <form:textarea path="ticketBody" rows="10" cols="50"/><br><br>
         <form:label path="attachments"><b>attachments:</b><br></form:label>
