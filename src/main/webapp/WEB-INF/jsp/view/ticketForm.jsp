@@ -7,7 +7,7 @@
     <h2>
         Submit a new ticket
     </h2>
-    <form method="POST" action="create" modelAttribute="ticket" enctype="multipart/form-data" >
+    <form:form method="POST" action="create" modelAttribute="ticket" enctype="multipart/form-data" >
         <form:label path="customerName">name:</form:label><br>
         <form:input path="customerName"></form:input><br><br>
         <form:label path="ticketSubject">subject:</form:label><br>
@@ -17,7 +17,7 @@
         <form:label path="attachments"><b>attachments:</b><br></form:label>
         <form:input path="attachments" type="file"/><br><br>
         <input type="submit" value="Submit">
-    </form>
+    </form:form>
 
 </body>
 </html>
