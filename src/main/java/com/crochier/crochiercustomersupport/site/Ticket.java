@@ -1,5 +1,7 @@
 package com.crochier.crochiercustomersupport.site;
 
+import com.crochier.crochiercustomersupport.entities.Attachment;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;

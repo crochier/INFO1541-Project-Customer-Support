@@ -1,4 +1,4 @@
-import com.crochier.crochiercustomersupport.site.Attachment;
+import com.crochier.crochiercustomersupport.entities.Attachment;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

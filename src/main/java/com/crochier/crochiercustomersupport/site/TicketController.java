@@ -1,8 +1,6 @@
 package com.crochier.crochiercustomersupport.site;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import jakarta.ws.rs.core.Link;
-import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
+import com.crochier.crochiercustomersupport.entities.Attachment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
