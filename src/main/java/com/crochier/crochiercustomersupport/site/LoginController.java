@@ -1,8 +1,11 @@
 package com.crochier.crochiercustomersupport.site;
 
 
+import com.crochier.crochiercustomersupport.entities.UserPrincipal;
+import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.ConstraintViolationException;
 import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.security.Principal;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -26,6 +31,7 @@ public class LoginController
        userDB.put("john", "password123");
        userDB.put("suzie", "suzie123");
    }
+   @Inject AuthenticationService authenticationService;
    @RequestMapping("logout")
     public View logout(HttpSession session)
    {
@@ -48,20 +54,26 @@ public class LoginController
                                   HttpSession session,
                                   HttpServletRequest request)
    {
-       if (session.getAttribute("username") != null)
+       if (UserPrincipal.getPrincipal(session) != null)
        {
            return new ModelAndView(new RedirectView("/tickets/listTickets", true, false));
        }
-       String username = form.getUsername();
-       String password = form.getPassword();
-       if (username == null || password == null || !userDB.containsKey(username) ||
-               !password.equals(userDB.get(username)))
+       Principal principal;
+       try {
+           principal = authenticationService.authenticate(form.getUsername(), form.getPassword());
+       }
+       catch (ConstraintViolationException e)
        {
+           return new ModelAndView("login");
+       }
+       if (principal == null)
+       {
+           form.setPassword(null);
           model.addAttribute("loginFailed", true);
           model.addAttribute("loginForm", form);
           return new ModelAndView("login");
        }
-       session.setAttribute("username", username);
+       UserPrincipal.setPrincipal(session, principal);
        request.changeSessionId();
        return new ModelAndView(new RedirectView("/tickets/listTickets", true, false));
    }

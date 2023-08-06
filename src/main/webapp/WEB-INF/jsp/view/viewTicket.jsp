@@ -6,10 +6,10 @@
 </head>
 <body>
 <a href="<c:url value='/logout/'/>">logout</a>
-    <h2> Ticket Number <c:out value="${idString}" /></h2>
-    <p>Subject: <c:out value="${ticket.ticketSubject}"/><br> </p>
+    <h2> Ticket Number <c:out value="${ticketId}" /></h2>
+    <p>Subject: <c:out value="${ticket.subject}"/><br> </p>
     <p>Customer Name: <c:out value="${ticket.customerName}" /><br> </p>
-    <p>Body: <c:out value="${ticket.ticketBody}"/><br> </p>
+    <p>Body: <c:out value="${ticket.body}"/><br> </p>
     <p>Number of Attachments: <c:out value="${ticket.getNumberOfAttachments()}"/><br> </p>
     <c:if test="${ticket.getNumberOfAttachments()>0}">
         <p>Attachments:</p>

@@ -1,6 +1,7 @@
 package com.crochier.crochiercustomersupport.site;
 
 import com.crochier.crochiercustomersupport.entities.Attachment;
+import jakarta.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +18,11 @@ import java.util.Map;
 @RequestMapping("tickets")
 public class TicketController
 {
-    private volatile int ticketID = 1;
-    private final Map<Integer, Ticket> allTickets = new LinkedHashMap<>();
-
+    @Inject TicketService ticketService;
     @RequestMapping(value = {"listTickets", ""})
     public String listTickets (Model model)
     {
-        model.addAttribute("allTickets", allTickets);
+        model.addAttribute("allTickets",ticketService.getAllTickets());
         return "listTickets";
     }
 
@@ -50,20 +49,14 @@ public class TicketController
         {
             ticket.addAttachment(attachment.getName(), attachment);
         }
-        int ID;
-        synchronized (this)
-        {
-            ID = this.ticketID;
-            this.ticketID++;
-            allTickets.put(ID, ticket);
-        }
-        return new RedirectView("view/" + ID, true, false);
+        ticketService.save(ticket);
+        return new RedirectView("view/" + ticket.getId(), true, false);
     }
 
     @GetMapping("view/{ticketID}")
     public ModelAndView viewTicket(Model model, @PathVariable("ticketID")int ticketID)
     {
-        Ticket ticket = allTickets.get(ticketID);
+        Ticket ticket = ticketService.getTicket(ticketID);
         if (ticket == null)
         {
             return new ModelAndView(new RedirectView("listTickets", true, false));
@@ -76,7 +69,7 @@ public class TicketController
     @GetMapping("/{ticketID}/attachment/{attachment:.+}")
     public View downloadAttachment (@PathVariable("ticketID")int ticketID,@PathVariable("attachment")String name)
     {
-        Ticket ticket= allTickets.get(ticketID);
+        Ticket ticket= ticketService.getTicket(ticketID);
         if (ticket == null)
         {
             return new RedirectView("listTickets", true, false);

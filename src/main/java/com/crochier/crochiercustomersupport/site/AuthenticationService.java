@@ -1,4 +1,10 @@
 package com.crochier.crochiercustomersupport.site;
 
-public interface AuthenticationService {
+import com.crochier.crochiercustomersupport.entities.UserPrincipal;
+import org.springframework.security.core.userdetails.User;
+
+public interface AuthenticationService
+{
+    UserPrincipal authenticate(String username, String password);
+    void saveUser(UserPrincipal principal, String newpassword);
 }

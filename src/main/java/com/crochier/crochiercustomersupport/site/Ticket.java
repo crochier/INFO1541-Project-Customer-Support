@@ -8,19 +8,11 @@ import java.util.Map;
 
 public class Ticket
 {
+    private long id;
     private String customerName;
     private String ticketSubject;
     private String ticketBody;
     private Map<String, Attachment> attachments = new LinkedHashMap<>();
-
-    public Ticket(String customerName, String ticketSubject, String ticketBody, Map<String, Attachment> attachments)
-    {
-        this.customerName = customerName;
-        this.ticketSubject = ticketSubject;
-        this.ticketBody = ticketBody;
-        this.attachments = attachments;
-    }
-
     public Ticket()
     {
         super();
@@ -92,5 +84,15 @@ public class Ticket
                 ", ticketBody='" + ticketBody + '\'' +
                 ", attachments=" + attachments +
                 '}';
+    }
+
+    public void setId(long id)
+    {
+        this.id = id;
+    }
+
+    public long getId()
+    {
+        return id;
     }
 }

@@ -1,6 +1,7 @@
 package com.crochier.crochiercustomersupport.entities;
 
 import jakarta.persistence.*;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.userdetails.User;
 
 import java.io.Serializable;
@@ -17,12 +18,19 @@ public class UserPrincipal implements Principal, Serializable
     private String name;
     private byte[] password;
 
+    public static Principal getPrincipal(HttpSession session)
+    {
+        return session == null ? null : (Principal) session.getAttribute(SESSION_ATTRIBUTE_KEY);
+    }
+
+    public static void setPrincipal(HttpSession session, Principal principal) {
+    }
+
     @Id
     @Column(name = "userId")
     public long getId() {
         return id;
     }
-    @Basic
     public void setId(long id) {
         this.id = id;
     }

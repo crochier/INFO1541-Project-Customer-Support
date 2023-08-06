@@ -30,7 +30,8 @@ public class RootContextConfig implements TransactionManagementConfigurer
     public static DataSource dataSource()
     {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("jdbc:mysql://localhost:3306/TicketDatabase");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/TicketDatabase");
         dataSource.setUsername("new_user");
         dataSource.setPassword("admin123");
         return dataSource;
@@ -48,7 +49,7 @@ public class RootContextConfig implements TransactionManagementConfigurer
         factory.setDataSource(dataSource());
         factory.setPackagesToScan("com.crochier.crochiercustomersupport.entities");
 
-        HibernateJpaVendorAdapter adapter new HibernateJpaVendorAdapter();
+        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
         factory.setJpaVendorAdapter(adapter);
         factory.setJpaPropertyMap(properties);
         factory.setSharedCacheMode(SharedCacheMode.ENABLE_SELECTIVE);
